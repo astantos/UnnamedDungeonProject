@@ -26,18 +26,17 @@ public class RoomTile : MonoBehaviour
     {
         RoomCoord = coord;
         room.AddTile(this);
-        Generate(room);
     }
 
-    public void Generate(Room room)
+    public IEnumerator Generate(Room room)
     {
-        GenerateTile(Vector3.forward, ValidTilesNorth, room);
-        GenerateTile(Vector3.right, ValidTilesEast, room);
-        GenerateTile(Vector3.back, ValidTilesSouth, room);
-        GenerateTile(Vector3.left, ValidTilesWest, room);
+        yield return StartCoroutine(GenerateTile(Vector3.forward, ValidTilesNorth, room));
+        yield return StartCoroutine(GenerateTile(Vector3.right, ValidTilesEast, room));
+        yield return StartCoroutine(GenerateTile(Vector3.back, ValidTilesSouth, room));
+        yield return StartCoroutine(GenerateTile(Vector3.left, ValidTilesWest, room));
     }
 
-    private void GenerateTile(Vector3 direction, List<RoomTile> validTiles, Room room)
+    private IEnumerator GenerateTile(Vector3 direction, List<RoomTile> validTiles, Room room)
     {
         Coord newCoord = new Coord
         {
@@ -47,7 +46,7 @@ public class RoomTile : MonoBehaviour
 
         if (room.GetTile(newCoord) != null || validTiles.Count < 1)
         {
-            return; 
+            yield break; 
         }
 
         RoomTile randomTile = validTiles[Random.Range(0, validTiles.Count)];
@@ -61,5 +60,7 @@ public class RoomTile : MonoBehaviour
         newTile.transform.position = transform.position + adjustment;
 
         newTile.Initialize(newCoord, room);
+        yield return new WaitForSeconds(2);
+        yield return StartCoroutine(newTile.Generate(room));
     }
 }

@@ -25,8 +25,14 @@ public class Room : MonoBehaviour
 
     public void Generate()
     {
+        StartCoroutine(GenerateRoutine());
+    }
+
+    public IEnumerator GenerateRoutine()
+    {
         RoomTile startTile = GameObject.Instantiate(StartingTilePrefab, transform);
         startTile.Initialize(new RoomTile.Coord { X = 0, Y = 0 }, this);
+        yield return StartCoroutine(startTile.Generate(this));
     }
 
     public void AddTile(RoomTile tile)
