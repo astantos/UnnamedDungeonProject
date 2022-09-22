@@ -31,18 +31,18 @@ public class RoomTile : MonoBehaviour
 
     public void Generate(Room room)
     {
-        GenerateTile(Vector2.up, ValidTilesNorth, room);
-        GenerateTile(Vector2.right, ValidTilesEast, room);
-        GenerateTile(Vector2.down, ValidTilesSouth, room);
-        GenerateTile(Vector2.left, ValidTilesWest, room);
+        GenerateTile(Vector3.forward, ValidTilesNorth, room);
+        GenerateTile(Vector3.right, ValidTilesEast, room);
+        GenerateTile(Vector3.back, ValidTilesSouth, room);
+        GenerateTile(Vector3.left, ValidTilesWest, room);
     }
 
-    private void GenerateTile(Vector2 direction, List<RoomTile> validTiles, Room room)
+    private void GenerateTile(Vector3 direction, List<RoomTile> validTiles, Room room)
     {
         Coord newCoord = new Coord
         {
             X = (int)(RoomCoord.X + direction.x),
-            Y = (int)(RoomCoord.Y + direction.y)
+            Y = (int)(RoomCoord.Y + direction.z)
         };
 
         if (room.GetTile(newCoord) != null || validTiles.Count < 1)
@@ -52,14 +52,14 @@ public class RoomTile : MonoBehaviour
 
         RoomTile randomTile = validTiles[Random.Range(0, validTiles.Count)];
         RoomTile newTile = GameObject.Instantiate(randomTile, room.transform);
-        newTile.Initialize(newCoord, room);
 
         Vector3 adjustment = 0.5f * (Dimensions + newTile.Dimensions);
         adjustment.x = direction.x != 0 ? adjustment.x * direction.x : 0;
-        adjustment.z = direction.y != 0 ? adjustment.z * direction.y : 0;
+        adjustment.y = direction.y != 0 ? adjustment.y * direction.y : 0;
+        adjustment.z = direction.z != 0 ? adjustment.z * direction.z : 0;
 
         newTile.transform.position = transform.position + adjustment;
 
-        newTile.Generate(room);
+        newTile.Initialize(newCoord, room);
     }
 }

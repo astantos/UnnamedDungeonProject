@@ -9,20 +9,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
       propertyPath: ValidTilesWest.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
       propertyPath: ValidTilesSouth.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
       propertyPath: ValidTilesWest.Array.data[0]
       value: 
       objectReference: {fileID: 6218727051870220517, guid: 912beaa598e775548a10d2470ebc2619, type: 3}
     - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      propertyPath: ValidTilesWest.Array.data[1]
+      value: 
+      objectReference: {fileID: 2213859075155026750, guid: d6db05356801ce2468e21695d2fef762, type: 3}
+    - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
       propertyPath: ValidTilesSouth.Array.data[0]
       value: 
       objectReference: {fileID: 7958105289045815085, guid: 13d7a514c3f659c4198f34c6749a79e9, type: 3}
+    - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      propertyPath: ValidTilesSouth.Array.data[1]
+      value: 
+      objectReference: {fileID: 305716189566010497, guid: 509ecceea9930484b80d0c368c42c429, type: 3}
     - target: {fileID: 1847341544500725500, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
       propertyPath: m_Mesh
       value: 

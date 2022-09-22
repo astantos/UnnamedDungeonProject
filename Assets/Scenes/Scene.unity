@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d7ac883134ce146917175b63ba8300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingTilePrefab: {fileID: 0}
+  StartingTilePrefab: {fileID: 3542013518195011469, guid: 4fa89c6b3ed76634d9ebacc1726b045e, type: 3}
   DoGenerate: 0
 --- !u!4 &516456264
 Transform:

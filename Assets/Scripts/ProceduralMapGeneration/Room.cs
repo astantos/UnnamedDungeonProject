@@ -7,13 +7,10 @@ public class Room : MonoBehaviour
     public RoomTile StartingTilePrefab;
     public List<List<RoomTile>> RoomGrid;
 
-    private int curWestIndex;
-
     private void Start()
     {
         RoomGrid = new List<List<RoomTile>>();
         RoomGrid.Add(new List<RoomTile>());
-        curWestIndex = 0;
     }
 
     public bool DoGenerate;
@@ -36,6 +33,11 @@ public class Room : MonoBehaviour
     {
         CorrectCoords(tile);
 
+        if (tile.RoomCoord.X > RoomGrid.Count - 1)
+        {
+            RoomGrid.Add(new List<RoomTile>());
+        }
+
         if (tile.RoomCoord.Y >= RoomGrid[tile.RoomCoord.X].Count)
         {
             for (int index = RoomGrid[tile.RoomCoord.X].Count; index < tile.RoomCoord.Y; index++)
@@ -52,7 +54,7 @@ public class Room : MonoBehaviour
 
     public RoomTile GetTile(RoomTile.Coord coord)
     {
-        if (coord.X < 0 || coord.X >= RoomGrid.Count || coord.Y < 0 || coord.Y >= RoomGrid[coord.X].Count - 1)
+        if (coord.X < 0 || coord.X >= RoomGrid.Count || coord.Y < 0 || coord.Y >= RoomGrid[coord.X].Count)
             return null;
         return RoomGrid[coord.X][coord.Y];
     }
