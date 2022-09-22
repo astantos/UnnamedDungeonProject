@@ -18,7 +18,7 @@ PrefabInstance:
     - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
       propertyPath: ValidTilesEast.Array.data[0]
       value: 
-      objectReference: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      objectReference: {fileID: 4749096232198118431, guid: 5a50413d826fd0e4992fa823de320806, type: 3}
     - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
       propertyPath: ValidTilesEast.Array.data[1]
       value: 

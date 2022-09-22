@@ -60,7 +60,7 @@ public class RoomTile : MonoBehaviour
         newTile.transform.position = transform.position + adjustment;
 
         newTile.Initialize(newCoord, room);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.25f);
         yield return StartCoroutine(newTile.Generate(room));
     }
 }

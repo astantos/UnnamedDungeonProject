@@ -16,6 +16,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8141769240039580475, guid: 778ffaecb81f72e4a8bc517958f56a6e, type: 3}
+      propertyPath: ValidTilesSouth.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8141769240039580475, guid: 778ffaecb81f72e4a8bc517958f56a6e, type: 3}
       propertyPath: ValidTilesEast.Array.data[0]
       value: 
       objectReference: {fileID: 2213859075155026750}
@@ -31,6 +35,10 @@ PrefabInstance:
       propertyPath: ValidTilesWest.Array.data[1]
       value: 
       objectReference: {fileID: 6218727051870220517, guid: 912beaa598e775548a10d2470ebc2619, type: 3}
+    - target: {fileID: -8141769240039580475, guid: 778ffaecb81f72e4a8bc517958f56a6e, type: 3}
+      propertyPath: ValidTilesSouth.Array.data[0]
+      value: 
+      objectReference: {fileID: -5686053735319932965, guid: 22592b772fb8f674595da1e1c7af98b5, type: 3}
     - target: {fileID: 387630800097445518, guid: 778ffaecb81f72e4a8bc517958f56a6e, type: 3}
       propertyPath: m_Mesh
       value: 

@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8141769240039580475, guid: 778ffaecb81f72e4a8bc517958f56a6e, type: 3}
+      propertyPath: ValidTilesEast.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8141769240039580475, guid: 778ffaecb81f72e4a8bc517958f56a6e, type: 3}
       propertyPath: ValidTilesNorth.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -15,6 +19,10 @@ PrefabInstance:
       propertyPath: ValidTilesSouth.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -8141769240039580475, guid: 778ffaecb81f72e4a8bc517958f56a6e, type: 3}
+      propertyPath: ValidTilesEast.Array.data[0]
+      value: 
+      objectReference: {fileID: -5686053735319932965, guid: 22592b772fb8f674595da1e1c7af98b5, type: 3}
     - target: {fileID: -8141769240039580475, guid: 778ffaecb81f72e4a8bc517958f56a6e, type: 3}
       propertyPath: ValidTilesNorth.Array.data[0]
       value: 
