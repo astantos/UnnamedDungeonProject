@@ -54,6 +54,18 @@ MonoBehaviour:
   - {fileID: 6704750772871220917, guid: 8481083a68b54d14e9c646b25ce00e42, type: 3}
   ValidTilesWest:
   - {fileID: 5028510479153122766, guid: b179a556934ea9e4fa8009bef6ee8c64, type: 3}
+  ValidTilesNorthWeighted:
+  - Tile: {fileID: 2213859075155026750, guid: d6db05356801ce2468e21695d2fef762, type: 3}
+    Weighting: 1
+  ValidTilesEastWeighted:
+  - Tile: {fileID: 305716189566010497, guid: 509ecceea9930484b80d0c368c42c429, type: 3}
+    Weighting: 1
+  ValidTilesSouthWeighted:
+  - Tile: {fileID: 6704750772871220917, guid: 8481083a68b54d14e9c646b25ce00e42, type: 3}
+    Weighting: 1
+  ValidTilesWestWeighted:
+  - Tile: {fileID: 5028510479153122766, guid: b179a556934ea9e4fa8009bef6ee8c64, type: 3}
+    Weighting: 1
 --- !u!1001 &5002151604937580712
 PrefabInstance:
   m_ObjectHideFlags: 0

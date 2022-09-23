@@ -18,19 +18,59 @@ PrefabInstance:
     - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
       propertyPath: ValidTilesEast.Array.data[0]
       value: 
-      objectReference: {fileID: 4749096232198118431, guid: 5a50413d826fd0e4992fa823de320806, type: 3}
+      objectReference: {fileID: 2213859075155026750, guid: d6db05356801ce2468e21695d2fef762, type: 3}
     - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
       propertyPath: ValidTilesEast.Array.data[1]
       value: 
-      objectReference: {fileID: 2213859075155026750, guid: d6db05356801ce2468e21695d2fef762, type: 3}
+      objectReference: {fileID: 3346623697013322533, guid: 897efda88958b42488f34ff687aee92d, type: 3}
     - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
       propertyPath: ValidTilesSouth.Array.data[0]
       value: 
-      objectReference: {fileID: 7958105289045815085, guid: 13d7a514c3f659c4198f34c6749a79e9, type: 3}
+      objectReference: {fileID: 5028510479153122766, guid: b179a556934ea9e4fa8009bef6ee8c64, type: 3}
     - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
       propertyPath: ValidTilesSouth.Array.data[1]
       value: 
+      objectReference: {fileID: 3346623697013322533, guid: 897efda88958b42488f34ff687aee92d, type: 3}
+    - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      propertyPath: ValidTilesEastWeighted.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      propertyPath: ValidTilesSouthWeighted.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      propertyPath: ValidTilesEastWeighted.Array.data[0].Tile
+      value: 
+      objectReference: {fileID: 2213859075155026750, guid: d6db05356801ce2468e21695d2fef762, type: 3}
+    - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      propertyPath: ValidTilesEastWeighted.Array.data[1].Tile
+      value: 
+      objectReference: {fileID: 3346623697013322533, guid: 897efda88958b42488f34ff687aee92d, type: 3}
+    - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      propertyPath: ValidTilesSouthWeighted.Array.data[0].Tile
+      value: 
       objectReference: {fileID: 5028510479153122766, guid: b179a556934ea9e4fa8009bef6ee8c64, type: 3}
+    - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      propertyPath: ValidTilesSouthWeighted.Array.data[1].Tile
+      value: 
+      objectReference: {fileID: 3346623697013322533, guid: 897efda88958b42488f34ff687aee92d, type: 3}
+    - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      propertyPath: ValidTilesEastWeighted.Array.data[0].Weighting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      propertyPath: ValidTilesEastWeighted.Array.data[1].Weighting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      propertyPath: ValidTilesSouthWeighted.Array.data[0].Weighting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -520756474528457162, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
+      propertyPath: ValidTilesSouthWeighted.Array.data[1].Weighting
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 663969406284882716, guid: ce6d8b8481f02ac489549954276322d7, type: 3}
       propertyPath: m_Mesh
       value: 
