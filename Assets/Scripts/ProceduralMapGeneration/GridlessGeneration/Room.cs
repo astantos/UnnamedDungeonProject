@@ -15,15 +15,33 @@ public class Room : MonoBehaviour
 
     public List<ConnectionPoint> ConnectionPoints;
 
-    public List<RoomValidator> Validators;
-
     public bool SpawnComplete { get; protected set; }
+    public bool PlacementValid { get; protected set; }
+    protected Dictionary<Transform, int> currentCollisions;
+
+    protected void Start()
+    {
+        currentCollisions = new Dictionary<Transform, int>();
+    }
+
+    public void RegisterNewCollision(Transform col)
+    {
+        if (currentCollisions.ContainsKey(col) == false)
+            currentCollisions.Add(col, 0);
+    }
+
+    public void UnregisterCollision(Transform col)
+    {
+        if (currentCollisions.ContainsKey(col))
+            currentCollisions.Remove(col);
+    }
 
     protected  Coroutine spawnRoutine;
-    public void SpawnConnectedRooms()
+    public Coroutine SpawnConnectedRooms()
     {
         if (spawnRoutine == null)
             spawnRoutine = StartCoroutine(SpawnRoutine());
+        return spawnRoutine;
     }
 
     protected IEnumerator SpawnRoutine()
@@ -32,6 +50,7 @@ public class Room : MonoBehaviour
         {
             yield return ConnectionPoints[index].Spawn();
         }
+        spawnRoutine = null;
     }
 
     protected Coroutine placeRoutine;
@@ -44,7 +63,7 @@ public class Room : MonoBehaviour
 
     protected IEnumerator PlaceRoutine(ConnectionPoint spawnPoint)
     {
-        float rotation = spawnPoint.transform.eulerAngles.y;
+        PlacementValid = false;
 
         List<ConnectionPoint> validPoints = new List<ConnectionPoint>(ConnectionPoints);
         while (validPoints.Count > 0)
@@ -70,17 +89,28 @@ public class Room : MonoBehaviour
                 -posOffset.z
             );
 
+            // Return Connection Point back to Original Relative Position
             connectPoint.transform.position = transform.position;
             connectPoint.transform.rotation = transform.rotation;
             connectPoint.transform.Translate(posOffset);
             connectPoint.transform.Rotate(0, rotationOffset, 0);
 
-            break;
+            // Check Validity
+            yield return YieldPool.Inst.GetWaitForSeconds(0.5f);
 
-            yield return YieldPool.Inst.WaitForEndOfFrame;
+            if (currentCollisions.Count > 0)
+            {
+                Debug.Log("[ WARNING ] Collision Detected, will attempt to change orientation");
+                validPoints.Remove(connectPoint);
+            }
+            else
+            {
+                // Room Placement is Valid
+                PlacementValid = true;
+                yield break;
+            }
         }
-        
-        yield return null;
+        placeRoutine = null;
     }
 
 }

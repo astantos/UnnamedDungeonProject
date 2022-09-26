@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: RoomList
   m_EditorClassIdentifier: Assembly-CSharp::RoomList
   RoomType: 0
-  Rooms: []
+  Rooms:
+  - {fileID: 3935160850744410554, guid: b62d6e1f905c46a439774dbbb73f1d37, type: 3}

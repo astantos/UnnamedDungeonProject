@@ -14,11 +14,15 @@ public class ConnectionPoint : MonoBehaviour
 
     protected Coroutine spawnRoutine;
 
+    public bool PlacementValid { get; protected set; }
 
     public void EnableConnector(bool status)
     {
-        EnabledObject?.SetActive(status);
-        DisabledObject?.SetActive(!status);
+        if (EnabledObject != null)
+            EnabledObject.SetActive(status);
+        
+        if (DisabledObject != null)
+            DisabledObject.SetActive(!status);
     }
 
     public Coroutine Spawn()
@@ -39,11 +43,24 @@ public class ConnectionPoint : MonoBehaviour
         {
             int roomIndex = Random.Range(0, validRooms.Count);
             Room room = GameObject.Instantiate(validRooms[roomIndex]);
-            room.TryPlace(this);
-            break;
+            yield return room.TryPlace(this);
+            if (room.PlacementValid)
+            {
+                break;
+            }
+            else
+            {
+                // Selected Room Cannot Be Placed
+                room.StopAllCoroutines();
+                GameObject.Destroy(room);
+                validRooms.RemoveAt(roomIndex);
+            }
         }
 
-        yield return null;
+        if (PlacementValid)
+            EnableConnector(true);
+        else
+            EnableConnector(false);
     }
 
     #region UtilityFunctions

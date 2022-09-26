@@ -26,7 +26,7 @@ public class YieldPool
 
     public WaitForSeconds GetWaitForSeconds(float duration)
     {
-        if (WaitList[duration] != null)
+        if (WaitList.ContainsKey(duration))
             return WaitList[duration];
         else
         {
