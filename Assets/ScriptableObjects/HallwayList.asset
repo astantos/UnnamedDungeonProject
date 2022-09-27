@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomList
   RoomType: 1
   Rooms:
-  - {fileID: 23435592095658657, guid: 36c5350b952d4364892bd1bf4e65f1a2, type: 3}
+  - {fileID: 23435592095658657, guid: 5439fe5691a704046936c29b37418aec, type: 3}
