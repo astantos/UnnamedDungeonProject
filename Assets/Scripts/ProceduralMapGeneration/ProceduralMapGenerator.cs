@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ProceduralMapGenerator : MonoBehaviour
 {
-    public bool Generate;
-
     public Room StartingRoom;
 
     protected List<Room> SpawnedRooms;
@@ -13,17 +11,19 @@ public class ProceduralMapGenerator : MonoBehaviour
     protected void Start()
     {
         SpawnedRooms = new List<Room>();
+        StartingRoom.Initialize(this);
         SpawnedRooms.Add(StartingRoom);
     }
 
-    protected void Update()
+    public void AddRoom(Room room)
     {
-        if (Generate)
-        {
-            Generate = false;
-            Random.InitState(GameData.RNG_SEED);
-            StartCoroutine(SpawnRoutine());
-        }
+        SpawnedRooms.Add(room);
+    }
+
+    public void Generate()
+    {
+        Random.InitState(GameData.RNG_SEED);
+        StartCoroutine(SpawnRoutine());
     }
 
     protected IEnumerator SpawnRoutine()

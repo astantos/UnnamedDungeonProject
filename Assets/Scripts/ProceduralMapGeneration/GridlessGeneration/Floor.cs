@@ -8,7 +8,7 @@ public class Floor : MonoBehaviour
     public Room room;
     public Transform ValidatorParent;
 
-    protected void Start()
+    public void Initialize()
     {
         RoomValidator validator = Instantiate(ValidatorPrefab, ValidatorParent);
         validator.Setup(transform.position, gameObject.GetComponent<Renderer>().bounds.size, room);

@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1403680410430075180, guid: 76096ebf0c311914eae250813e4c2449, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1872
+      objectReference: {fileID: 0}
     - target: {fileID: 3666345703956655135, guid: 76096ebf0c311914eae250813e4c2449, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -144,6 +148,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7969282140454595061, guid: 6c04e25602588744cb12c2289c0084ec, type: 3}
+      propertyPath: m_VersionIndex
+      value: 908
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c04e25602588744cb12c2289c0084ec, type: 3}
 --- !u!1001 &1101700868908039454
@@ -212,6 +220,10 @@ PrefabInstance:
     - target: {fileID: 7969282140454595061, guid: 1cf41c4b3186c5444b48210498cd7af6, type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969282140454595061, guid: 1cf41c4b3186c5444b48210498cd7af6, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1219
       objectReference: {fileID: 0}
     - target: {fileID: 7969282140454595061, guid: 1cf41c4b3186c5444b48210498cd7af6, type: 3}
       propertyPath: m_SelectedEdges.Array.size
@@ -296,7 +308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7969282140454595061, guid: 6c04e25602588744cb12c2289c0084ec, type: 3}
       propertyPath: m_VersionIndex
-      value: 911
+      value: 914
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c04e25602588744cb12c2289c0084ec, type: 3}
@@ -369,7 +381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7969282140454595061, guid: 6c04e25602588744cb12c2289c0084ec, type: 3}
       propertyPath: m_VersionIndex
-      value: 908
+      value: 911
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c04e25602588744cb12c2289c0084ec, type: 3}
@@ -487,6 +499,10 @@ PrefabInstance:
     - target: {fileID: 4094993284921540808, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094993284921540808, guid: 62eed433904d14b4fb259c032378c997, type: 3}
+      propertyPath: m_VersionIndex
+      value: 552
       objectReference: {fileID: 0}
     - target: {fileID: 5264622754990015677, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: m_RootOrder
@@ -611,7 +627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7969282140454595061, guid: 1cf41c4b3186c5444b48210498cd7af6, type: 3}
       propertyPath: m_VersionIndex
-      value: 1219
+      value: 1222
       objectReference: {fileID: 0}
     - target: {fileID: 7969282140454595061, guid: 1cf41c4b3186c5444b48210498cd7af6, type: 3}
       propertyPath: m_SelectedEdges.Array.size

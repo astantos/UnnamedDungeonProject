@@ -49,8 +49,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
+  ConnectionPointParent: {fileID: 7716092553097517230}
+  FloorParent: {fileID: 8766647535256554997}
   ConnectionPoints: []
-  Validators: []
+  Floors: []
 --- !u!1 &5453839193169011562
 GameObject:
   m_ObjectHideFlags: 0

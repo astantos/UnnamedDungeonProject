@@ -20,12 +20,12 @@ public class RoomValidator : MonoBehaviour
 
     public void OnTriggerEnter(Collider collider)
     {
-        room.RegisterNewCollision(collider.transform);
-        Debug.LogWarning("!!!!!!!!!!!! COLLISION ");
+        room.RegisterNewCollision();
+        //Debug.LogWarning("!!!!!!!!!!!! COLLISION ");
     }
 
     public void OnTriggerExit(Collider collider)
     {
-        room.UnregisterCollision(collider.transform);
+        room.UnregisterCollision();
     }
 }

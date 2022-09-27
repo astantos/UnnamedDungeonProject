@@ -81,21 +81,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9199886104508372751, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: m_Name
-      value: ConnectionPoint
+      value: ConnectionPointS
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62eed433904d14b4fb259c032378c997, type: 3}
---- !u!114 &702128596362159343 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
-  m_PrefabInstance: {fileID: 508078428075861200}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3fd0af67706db54b91dc42dab6bd9eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &668200740735010622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107,26 +96,6 @@ PrefabInstance:
       propertyPath: Type
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 654903774948603295, guid: 4cd23f182c3fb984db89af6c9edc38ef, type: 3}
-      propertyPath: ConnectionPoints.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 654903774948603295, guid: 4cd23f182c3fb984db89af6c9edc38ef, type: 3}
-      propertyPath: ConnectionPoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 3888924723720222858}
-    - target: {fileID: 654903774948603295, guid: 4cd23f182c3fb984db89af6c9edc38ef, type: 3}
-      propertyPath: ConnectionPoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 702128596362159343}
-    - target: {fileID: 654903774948603295, guid: 4cd23f182c3fb984db89af6c9edc38ef, type: 3}
-      propertyPath: ConnectionPoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 7022272256242172740}
-    - target: {fileID: 654903774948603295, guid: 4cd23f182c3fb984db89af6c9edc38ef, type: 3}
-      propertyPath: ConnectionPoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 4568570368777770348}
     - target: {fileID: 866577187685468166, guid: 4cd23f182c3fb984db89af6c9edc38ef, type: 3}
       propertyPath: m_Name
       value: Hallway_3x10_4
@@ -508,21 +477,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9199886104508372751, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: m_Name
-      value: ConnectionPoint
+      value: ConnectionPointW
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62eed433904d14b4fb259c032378c997, type: 3}
---- !u!114 &4568570368777770348 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
-  m_PrefabInstance: {fileID: 3590963288844834131}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3fd0af67706db54b91dc42dab6bd9eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3697930638737369021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -685,21 +643,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9199886104508372751, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: m_Name
-      value: ConnectionPoint
+      value: ConnectionPointN
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62eed433904d14b4fb259c032378c997, type: 3}
---- !u!114 &3888924723720222858 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
-  m_PrefabInstance: {fileID: 4272584472846448821}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3fd0af67706db54b91dc42dab6bd9eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5161778506407728404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1186,21 +1133,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9199886104508372751, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: m_Name
-      value: ConnectionPoint
+      value: ConnectionPointE
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62eed433904d14b4fb259c032378c997, type: 3}
---- !u!114 &7022272256242172740 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
-  m_PrefabInstance: {fileID: 8054520770172945275}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3fd0af67706db54b91dc42dab6bd9eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8343506754270455689
 PrefabInstance:
   m_ObjectHideFlags: 0

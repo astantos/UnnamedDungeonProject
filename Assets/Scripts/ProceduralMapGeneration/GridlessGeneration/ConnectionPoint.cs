@@ -15,14 +15,31 @@ public class ConnectionPoint : MonoBehaviour
     protected Coroutine spawnRoutine;
 
     public bool PlacementValid { get; protected set; }
+    protected ProceduralMapGenerator generator;
+
+    public bool ConnectorEnabled { get; protected set; }
+
+    protected void Awake()
+    {
+        EnableConnector(true);
+    }
+
+    public void Initialize(ProceduralMapGenerator generator)
+    {
+        this.generator = generator;
+    }
 
     public void EnableConnector(bool status)
     {
+        ConnectorEnabled = status;
+
         if (EnabledObject != null)
-            EnabledObject.SetActive(status);
+            EnabledObject.SetActive(ConnectorEnabled);
         
         if (DisabledObject != null)
-            DisabledObject.SetActive(!status);
+            DisabledObject.SetActive(!ConnectorEnabled);
+
+        transform.localScale = ConnectorEnabled ? Vector3.one : Vector3.zero;
     }
 
     public Coroutine Spawn()
@@ -37,30 +54,47 @@ public class ConnectionPoint : MonoBehaviour
 
     protected IEnumerator SpawnRoutine()
     {
+        //Debug.Log($"[ CONNECTION POINT ] {gameObject.name}: Attempting Placement");
+        PlacementValid = false;
+
         List<Room> validRooms = GetValidRooms();
 
         while(validRooms.Count > 0)
         {
             int roomIndex = Random.Range(0, validRooms.Count);
             Room room = GameObject.Instantiate(validRooms[roomIndex]);
+            room.Initialize(generator);
+            //room.gameObject.name = $"{room.gameObject.name}_Current";
+            //Debug.Log($"[ CONNECTION POINT ] {gameObject.name}: Attempting to Place {room.gameObject.name}");
             yield return room.TryPlace(this);
             if (room.PlacementValid)
             {
+                //Debug.Log($"[ CONNECTION POINT ] {gameObject.name}: Placement Successful");
+                PlacementValid = true;
+                generator.AddRoom(room);
+                //room.gameObject.name = $"{room.gameObject.name}_PLACED";
                 break;
             }
             else
             {
                 // Selected Room Cannot Be Placed
+                //Debug.Log($"[ CONNECTION POINT ] {gameObject.name}: Placement Not Successful, removing {room.gameObject.name} as valid");
                 room.StopAllCoroutines();
-                GameObject.Destroy(room);
+                //room.gameObject.name = $"{room.gameObject.name}_DESTROYED";
+                GameObject.Destroy(room.gameObject);
                 validRooms.RemoveAt(roomIndex);
             }
         }
 
         if (PlacementValid)
-            EnableConnector(true);
-        else
+        {
             EnableConnector(false);
+        }
+        else
+        {
+            //Debug.Log($"[ CONNECTION POINT ] {gameObject.name}: No Valid Placements, disabling connector");
+            EnableConnector(false);
+        }
     }
 
     #region UtilityFunctions
