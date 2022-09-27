@@ -22,7 +22,7 @@ public class ProceduralMapGenerator : MonoBehaviour
 
     public void Generate()
     {
-        Random.InitState(GameData.RNG_SEED);
+        //Random.InitState(GameData.RNG_SEED);
         StartCoroutine(SpawnRoutine());
     }
 
