@@ -740,7 +740,7 @@ PrefabInstance:
       objectReference: {fileID: 4624733107714645389}
     - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: ValidRoomTypes.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: ValidRoomTypes.Array.data[0]
@@ -755,11 +755,19 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
+      propertyPath: ValidRoomTypes.Array.data[2].Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: ValidRoomTypes.Array.data[0].Weight
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: ValidRoomTypes.Array.data[1].Weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
+      propertyPath: ValidRoomTypes.Array.data[2].Weight
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3955667392728633629, guid: 62eed433904d14b4fb259c032378c997, type: 3}
@@ -824,7 +832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9199886104508372751, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: m_Name
-      value: ConnectionPoint (1)
+      value: ConnectionPointE
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62eed433904d14b4fb259c032378c997, type: 3}
@@ -933,7 +941,7 @@ PrefabInstance:
       objectReference: {fileID: 2607616174289758747}
     - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: ValidRoomTypes.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: ValidRoomTypes.Array.data[0]
@@ -948,11 +956,19 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
+      propertyPath: ValidRoomTypes.Array.data[2].Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: ValidRoomTypes.Array.data[0].Weight
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: ValidRoomTypes.Array.data[1].Weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
+      propertyPath: ValidRoomTypes.Array.data[2].Weight
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3955667392728633629, guid: 62eed433904d14b4fb259c032378c997, type: 3}
@@ -1017,7 +1033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9199886104508372751, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: m_Name
-      value: ConnectionPoint
+      value: ConnectionPointW
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62eed433904d14b4fb259c032378c997, type: 3}
