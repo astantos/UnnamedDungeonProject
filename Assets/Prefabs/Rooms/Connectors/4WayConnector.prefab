@@ -359,6 +359,10 @@ PrefabInstance:
       propertyPath: ValidRoomTypes.Array.data[0].Type
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
+      propertyPath: ValidRoomTypes.Array.data[0].Weight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3955667392728633629, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -538,7 +542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: ValidRoomTypes.Array.data[0].Weight
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3955667392728633629, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: m_Mesh
@@ -880,6 +884,10 @@ PrefabInstance:
       propertyPath: ValidRoomTypes.Array.data[0].Type
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
+      propertyPath: ValidRoomTypes.Array.data[0].Weight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3955667392728633629, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1052,6 +1060,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
       propertyPath: ValidRoomTypes.Array.data[0].Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059322959162720319, guid: 62eed433904d14b4fb259c032378c997, type: 3}
+      propertyPath: ValidRoomTypes.Array.data[0].Weight
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3955667392728633629, guid: 62eed433904d14b4fb259c032378c997, type: 3}

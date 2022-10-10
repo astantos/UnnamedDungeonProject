@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: RoomDictionary
   m_EditorClassIdentifier: 
   RoomLists:
-  - {fileID: 11400000, guid: de159b12386f183408212c6386e30b9f, type: 2}
-  - {fileID: 11400000, guid: c70642e0d54273f418e0ccc75a1113f0, type: 2}
-  - {fileID: 11400000, guid: 6582a799ff1c68b43a090da88e182074, type: 2}
+  - {fileID: 11400000, guid: 101c99cf0098ad440939e7e89562bb49, type: 2}
+  - {fileID: 11400000, guid: da9384d052cd57147972c6626206f250, type: 2}
+  - {fileID: 11400000, guid: e4baa3171b4dde44684cccd69bcf1ad4, type: 2}

@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 552b5092a97b97042b9357237faf34ef, type: 3}
   m_Name: RoomList
-  m_EditorClassIdentifier: Assembly-CSharp::RoomList
+  m_EditorClassIdentifier: 
   RoomType: 0
   Rooms:
-  - {fileID: 3935160850744410554, guid: b62d6e1f905c46a439774dbbb73f1d37, type: 3}
+  - Room: {fileID: 3935160850744410554, guid: b62d6e1f905c46a439774dbbb73f1d37, type: 3}
+    Weight: 1
+  - Room: {fileID: 3935160850744410554, guid: 0dc572af2399d1848a4963793f97aa4e, type: 3}
+    Weight: 4
