@@ -71,7 +71,9 @@ public class Room : MonoBehaviour
     {
         for (int index = 0; index < ConnectionPoints.Count; index++)
         {
+            Debug.Log($"\t>>>Spawning rooms at Connection {index} of {ConnectionPoints.Count} Connection Points");
             yield return ConnectionPoints[index].Spawn();
+            Debug.Log($"\t>>>Spawning rooms at Connection {index} of Complete");
         }
         spawnRoutine = null;
     }
@@ -86,8 +88,6 @@ public class Room : MonoBehaviour
 
     protected IEnumerator PlaceRoutine(ConnectionPoint spawnPoint)
     {
-        //Debug.Log("[ PLACEMENT ] Attempting to place Room");
-
         PlacementValid = false;
 
         List<ConnectionPoint> validPoints = new List<ConnectionPoint>();
@@ -97,28 +97,26 @@ public class Room : MonoBehaviour
             if (ConnectionPoints[index].ConnectorEnabled)
                 validPoints.Add(ConnectionPoints[index]);
         }
+        Debug.Log($"[ PLACEMENT ] Attempting to place Room with {validPoints.Count} connections");
+
 
         while (validPoints.Count > 0)
         {
             int randomPoint = Random.Range(0, validPoints.Count);
+            Debug.Log($"[ PLACEMENT ] Picking point {randomPoint}");
             ConnectionPoint connectPoint = validPoints[randomPoint];
-
-            //Debug.Log($"[ PLACEMENT ] Chosen Connection Point: {randomPoint}: {connectPoint.gameObject.name}");
 
             // Record Current Relative Position
             Vector3 posOffset = connectPoint.transform.position - transform.position;
             float rotationOffset = connectPoint.transform.eulerAngles.y - transform.rotation.eulerAngles.y;
 
-            //Debug.Log($"[ PLACEMENT ] Offsets: {posOffset.x},{posOffset.y},{posOffset.z} | {rotationOffset}");
 
             // Move Connection Point to New Location
-            //Debug.Log($"[ PLACEMENT ] Snapping Connection Point to spawn point position: ({spawnPoint.transform.position.x}, {spawnPoint.transform.position.y}, {spawnPoint.transform.position.z})");
             connectPoint.transform.position = spawnPoint.transform.position;
             Vector3 newRot = spawnPoint.transform.eulerAngles + new Vector3(0, 180, 0);
             connectPoint.transform.rotation = Quaternion.Euler(newRot);
 
             // Move Room to New Location
-            //Debug.Log($"[ PLACEMENT ] Snapping transform to connection point position: ({connectPoint.transform.position.x}, {connectPoint.transform.position.y}, {connectPoint.transform.position.z})");
             transform.position = connectPoint.transform.position;
             transform.rotation = connectPoint.transform.rotation;
             transform.Rotate(0, -rotationOffset, 0);
@@ -135,26 +133,29 @@ public class Room : MonoBehaviour
             connectPoint.transform.Rotate(0, rotationOffset, 0);
 
             // Check Validity
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
-
+            yield return new WaitForFixedUpdate();
+      
             if (currentCollisions > 0)
             {
-                //Debug.Log("[ WARNING ] Collision Detected, will attempt to change orientation");
+                Debug.Log("[ PLACEMENT ] Collision! Will Remove Connection Point and reattempt");
                 validPoints.Remove(connectPoint);
                 transform.rotation = Quaternion.Euler(Vector3.zero);
             }
             else
             {
                 // Room Placement is Valid
-                //Debug.Log("[ PLACEMENT ] Placement Complete");
+                Debug.Log("[ PLACEMENT ] Placement Complete");
                 PlacementValid = true;
                 connectPoint.EnableConnector(false);
+                connectPoint.SetDoorwayActive(true);
                 yield break;
             }
         }
+
+        if (PlacementValid)
+            Debug.Log("[ PLACEMENT ] Successfully Placed");
+        else
+            Debug.Log("[ PLACEMENT ] No successful placement");
 
         placeRoutine = null;
     }

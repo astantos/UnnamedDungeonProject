@@ -30,7 +30,9 @@ public class ProceduralMapGenerator : MonoBehaviour
     {
         for (int index = 0; index < SpawnedRooms.Count; index++)
         {
+            Debug.Log($"Spawning Room {index} of {SpawnedRooms.Count} Rooms");
             yield return SpawnedRooms[index].SpawnConnectedRooms();
+            Debug.Log($"Room {index} Complete");
         }
         Debug.Log("[ PROGRESS ] Spawn Complete");
     }

@@ -13,11 +13,13 @@ public class ConnectionPoint : MonoBehaviour
         public int Weight;
     }
 
+    [Header("Parameters")]
+    public int ConnectionIndex;
     public RoomDictionary RoomDictionary;
-
     public GameObject EnabledObject;
     public GameObject DisabledObject;
 
+    [Header("Connections")]
     public bool FreeConnection;
     public List<ConnectionType> ValidRoomTypes;
 
@@ -41,14 +43,16 @@ public class ConnectionPoint : MonoBehaviour
     public void EnableConnector(bool status)
     {
         ConnectorEnabled = status;
+        transform.localScale = ConnectorEnabled ? Vector3.one : Vector3.zero;
+    }
 
+    public void SetDoorwayActive(bool status)
+    {
         if (EnabledObject != null)
-            EnabledObject.SetActive(ConnectorEnabled);
+            EnabledObject.SetActive(status);
         
         if (DisabledObject != null)
-            DisabledObject.SetActive(!ConnectorEnabled);
-
-        transform.localScale = ConnectorEnabled ? Vector3.one : Vector3.zero;
+            DisabledObject.SetActive(!status);
     }
 
     public Coroutine Spawn()
@@ -63,69 +67,63 @@ public class ConnectionPoint : MonoBehaviour
 
     protected IEnumerator SpawnRoutine()
     {
-        //Debug.Log($"[ CONNECTION POINT ] {gameObject.name}: Attempting Placement");
-        PlacementValid = false;
-
-        List<ConnectionType> validConnections = new List<ConnectionType>(ValidRoomTypes);
-        ConnectionType connection;
-
-        while(validConnections.Count > 0)
+        if (ConnectorEnabled)
         {
-            connection = GetRandomConnection(validConnections);
-            Room.RoomType roomType = connection.Type;
+            PlacementValid = false;
 
-            List<Room> validRooms = GetValidRooms(roomType);
+            List<ConnectionType> validConnections = new List<ConnectionType>(ValidRoomTypes);
+            Debug.Log($"\t\t>>>There are {validConnections.Count} valid connections");
+            ConnectionType connection;
 
-            while(validRooms.Count > 0)
+            while (validConnections.Count > 0)
             {
-                int roomIndex = Random.Range(0, validRooms.Count);
-                Room room = GameObject.Instantiate(validRooms[roomIndex]);
-                room.Initialize(generator);
-                //room.gameObject.name = $"{room.gameObject.name}_Current";
-                //Debug.Log($"[ CONNECTION POINT ] {gameObject.name}: Attempting to Place {room.gameObject.name}");
-                yield return room.TryPlace(this);
-                if (room.PlacementValid)
+                connection = GetRandomConnection(validConnections);
+                Room.RoomType roomType = connection.Type;
+
+                List<RoomList.WeightedRoom> validRooms = GetValidRooms(roomType);
+                Debug.Log($"\t\t\t>>>There are {validRooms.Count} valid rooms");
+
+                while (validRooms.Count > 0)
                 {
-                    //Debug.Log($"[ CONNECTION POINT ] {gameObject.name}: Placement Successful");
-                    PlacementValid = true;
-                    generator.AddRoom(room);
-                    //room.gameObject.name = $"{room.gameObject.name}_PLACED";
+                    RoomList.WeightedRoom weightedRoom = GetRandomRoom(validRooms);
+                    Room room = GameObject.Instantiate(weightedRoom.Room);
+                    room.Initialize(generator);
+                    yield return room.TryPlace(this);
+                    if (room.PlacementValid)
+                    {
+                        PlacementValid = true;
+                        generator.AddRoom(room);
+                        break;
+                    }
+                    else
+                    {
+                        // Selected Room Cannot Be Placed
+                        room.StopAllCoroutines();
+                        GameObject.Destroy(room.gameObject);
+                        validRooms.Remove(weightedRoom);
+                    }
+                }
+
+                if (PlacementValid)
+                {
+                    EnableConnector(false);
                     break;
                 }
                 else
                 {
-                    // Selected Room Cannot Be Placed
-                    //Debug.Log($"[ CONNECTION POINT ] {gameObject.name}: Placement Not Successful, removing {room.gameObject.name} as valid");
-                    room.StopAllCoroutines();
-                    //room.gameObject.name = $"{room.gameObject.name}_DESTROYED";
-                    GameObject.Destroy(room.gameObject);
-                    validRooms.RemoveAt(roomIndex);
+                    validConnections.Remove(connection);
                 }
             }
 
-            if (PlacementValid)
-            {
-                EnableConnector(false);
-                break;
-            }
-            else
-            {
-                //Debug.Log($"[ CONNECTION POINT ] {gameObject.name}: No Valid Placements, disabling connector");
-                validConnections.Remove(connection);
-            }
-        }
-
-
-        if (PlacementValid == false)
-        {
             EnableConnector(false);
+            SetDoorwayActive(validConnections.Count > 0);
         }
     }
 
     #region UtilityFunctions
-    protected List<Room> GetValidRooms(Room.RoomType roomType)
+    protected List<RoomList.WeightedRoom> GetValidRooms(Room.RoomType roomType)
     {
-        List<Room> validRooms = new List<Room>();
+        List<RoomList.WeightedRoom> validRooms = new List<RoomList.WeightedRoom>();
 
         for (int roomList = 0; roomList< RoomDictionary.RoomLists.Count; roomList++)
         {
@@ -163,7 +161,29 @@ public class ConnectionPoint : MonoBehaviour
         Debug.LogWarning("Returning first as default");
         return validTypes[0];
     }
+    protected RoomList.WeightedRoom GetRandomRoom(List<RoomList.WeightedRoom> weightedRooms)
+    {
+        int totalWeight = 0;
+        for (int index = 0; index < weightedRooms.Count; index++)
+        {
+            totalWeight += weightedRooms[index].Weight;
+        }
 
+        if (totalWeight > 0)
+        {
+            int randomTarget = Random.Range(0, totalWeight);
+            int current = 0;
+            for (int index = 0; index < weightedRooms.Count; index++)
+            {
+                current += weightedRooms[index].Weight;
+                if (current >= randomTarget)
+                    return weightedRooms[index];
+            }
+        }
+
+        Debug.LogWarning("Returning first as default");
+        return weightedRooms[0];
+    }
     #endregion
 
 }
