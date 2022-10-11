@@ -10,7 +10,7 @@ public class GridBasedMapGenerator : MonoBehaviour
     public int Width;
     public int Height;
     public int HoleCount;
-    [Range(0,1)]
+    [Range(0, 1)]
     public float MinCoverage;
     public int WallRemovalCount;
     public int DoorCount;
@@ -18,6 +18,9 @@ public class GridBasedMapGenerator : MonoBehaviour
     [Header("Exit Failsafes")]
     public int GenerationAttempts;
     public int CoverageAttempts;
+
+    [Tooltip("Total multiplier number of attempts to find targets, per function (e.g. GenerateDoors(100) => 100 x BreakoutAttepts)")]
+    public int BreakoutAttempts;
 
     protected UnitRoom[][] rooms;
 
@@ -30,6 +33,11 @@ public class GridBasedMapGenerator : MonoBehaviour
         {
             Debug.LogError($"[ ERROR ] Generation Exceeded {GenerationAttempts}. Consider changing some parameters.");
             return;
+        }
+
+        if (HoleCount > (Width * Height))
+        {
+            Debug.LogError($"[ ERROR ] Desired Hole Count ({HoleCount}) exceeds the total available tiles ({Width * Height})! Generation cancelled.");
         }
 
         generationAttempts = attemptCount;
@@ -109,7 +117,7 @@ public class GridBasedMapGenerator : MonoBehaviour
         Debug.Log($"\tCoverage Check Attempt: {attemptCount}");
         int xRand = Random.Range(0, rooms.Length);
         int zRand = Random.Range(0, rooms[xRand].Length);
-    
+
         if (rooms[xRand][zRand] == null)
         {
             CheckCoverage();
@@ -119,7 +127,7 @@ public class GridBasedMapGenerator : MonoBehaviour
             ResetMarkedRooms();
 
             int cellsNeeded = (int)(MinCoverage * Width * Height);
-            int coverage = MarkCellAndContinue(xRand, zRand, 0); 
+            int coverage = MarkCellAndContinue(xRand, zRand, 0);
 
             Debug.Log($"\tCells Covered: {coverage} of {cellsNeeded}");
             if (coverage < cellsNeeded)
@@ -159,6 +167,12 @@ public class GridBasedMapGenerator : MonoBehaviour
 
     protected void RemoveWalls()
     {
+        if (WallRemovalCount > CountWalls())
+        {
+            Debug.LogError($"[ ERROR ] Desired Wall Removal Count ({WallRemovalCount}) exceeds remaining Wall Count");
+        }
+
+        int currentBreakout = 0;
         for (int index = 0; index < WallRemovalCount; index++)
         {
             int xRand = Random.Range(0, rooms.Length);
@@ -176,7 +190,7 @@ public class GridBasedMapGenerator : MonoBehaviour
                 nZRand++;
             else if (direction == UnitRoom.RoomDirection.South)
                 nZRand--;
-            else 
+            else
                 nXRand--;
 
             if (nXRand >= 0 && nXRand < rooms.Length && nZRand >= 0 && nZRand < rooms[nXRand].Length)
@@ -214,11 +228,25 @@ public class GridBasedMapGenerator : MonoBehaviour
                 roomEdge.SetMode(RoomEdge.EdgeMode.None);
                 neighbourEdge.SetMode(RoomEdge.EdgeMode.None);
             }
+
+            currentBreakout++;
+            if (currentBreakout > BreakoutAttempts * WallRemovalCount)
+            {
+                Debug.LogError("[ ERROR ] RemoveWalls() exceeded Breakout Attempts. There might not be enough walls to remove.");
+                return;
+            }
         }
     }
 
     protected void GenerateDoors()
     {
+        if (DoorCount > CountWalls())
+        {
+            Debug.LogError($"[ ERROR ] Desired Door Count ({DoorCount}) exceeds remaining Wall Count");
+        }
+
+
+        int currentBreakout = 0;
         for (int index = 0; index < DoorCount; index++)
         {
             int xRand = Random.Range(0, rooms.Length);
@@ -236,7 +264,7 @@ public class GridBasedMapGenerator : MonoBehaviour
                 nZRand++;
             else if (direction == UnitRoom.RoomDirection.South)
                 nZRand--;
-            else 
+            else
                 nXRand--;
 
             if (nXRand >= 0 && nXRand < rooms.Length && nZRand >= 0 && nZRand < rooms[nXRand].Length)
@@ -280,11 +308,33 @@ public class GridBasedMapGenerator : MonoBehaviour
                     roomEdge.SetMode(RoomEdge.EdgeMode.Door);
                     neighbourEdge.SetMode(RoomEdge.EdgeMode.Door);
                 }
+
+                currentBreakout++;
+                if (currentBreakout > BreakoutAttempts * DoorCount)
+                {
+                    Debug.LogError("[ ERROR ] GenerateDoors() exceeded Breakout Attempts. There might not be enough walls left to add a door to.");
+                    return;
+                }
             }
         }
     }
 
     #region Utility
+    protected int CountWalls()
+    {
+        int count = 0;
+        for (int x = 0; x < rooms.Length; x++)
+        {
+            for (int z = 0; z < rooms[x].Length; z++)
+            {
+                if (rooms[x][z] == null)
+                    continue;
+                count += rooms[x][z].GetEdgeCount(RoomEdge.EdgeMode.Wall);
+            }
+        }
+        return count;
+    }
+
     protected bool[][] MarkedRooms;
     protected void ResetMarkedRooms()
     {
@@ -322,5 +372,6 @@ public class GridBasedMapGenerator : MonoBehaviour
 
         return result;
     }
+
     #endregion
 }

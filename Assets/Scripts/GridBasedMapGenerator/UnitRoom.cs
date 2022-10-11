@@ -27,5 +27,13 @@ public class UnitRoom : MonoBehaviour
         else return West;
     }
 
-
+    public int GetEdgeCount(RoomEdge.EdgeMode mode)
+    {
+        int count = 0;
+        if (East.CurrentMode == mode) count++;
+        if (North.CurrentMode == mode) count++;
+        if (South.CurrentMode == mode) count++;
+        if (West.CurrentMode == mode) count++;
+        return count;
+    }
 }
