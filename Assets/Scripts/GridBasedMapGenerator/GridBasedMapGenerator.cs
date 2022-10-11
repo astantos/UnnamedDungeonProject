@@ -12,6 +12,7 @@ public class GridBasedMapGenerator : MonoBehaviour
     public int HoleCount;
     public int MinCoverage;
     public int WallRemovalCount;
+    public int DoorCount;
 
     protected UnitRoom[][] rooms;
 
@@ -128,23 +129,21 @@ public class GridBasedMapGenerator : MonoBehaviour
         {
             int xRand = Random.Range(0, rooms.Length);
             int zRand = Random.Range(0, rooms[xRand].Length);
-            int direction = Random.Range(0, 4); // N S E W
+            UnitRoom.RoomDirection direction = (UnitRoom.RoomDirection)Random.Range(0, (int)UnitRoom.RoomDirection.Directions);
             int nXRand = xRand;
             int nZRand = zRand;
 
             UnitRoom room = rooms[xRand][zRand];
             UnitRoom neighbour = null;
 
-            if (direction == 0)
-                nZRand++;
-            else if (direction == 1)
-                nZRand--;
-            else if (direction == 2)
+            if (direction == UnitRoom.RoomDirection.East)
                 nXRand++;
-            else if (direction == 3)
+            else if (direction == UnitRoom.RoomDirection.North)
+                nZRand++;
+            else if (direction == UnitRoom.RoomDirection.South)
+                nZRand--;
+            else 
                 nXRand--;
-            else
-                Debug.LogError("[ ERROR ] Unknown Direction");
 
             if (nXRand >= 0 && nXRand < rooms.Length && nZRand >= 0 && nZRand < rooms[nXRand].Length)
                 neighbour = rooms[nXRand][nZRand];
@@ -156,32 +155,101 @@ public class GridBasedMapGenerator : MonoBehaviour
             else
             {
                 Debug.Log($"Direction {direction}: Removing Walls from {{{xRand}}},{{{zRand}}} and {{{nXRand}}},{{{nZRand}}}");
-                if (direction == 0) // NORTH
+                RoomEdge roomEdge;
+                RoomEdge neighbourEdge;
+                if (direction == UnitRoom.RoomDirection.East)
                 {
-                    room.North.SetMode(RoomEdge.EdgeMode.None);
-                    neighbour.South.SetMode(RoomEdge.EdgeMode.None);
+                    roomEdge = room.GetEdge(UnitRoom.RoomDirection.East);
+                    neighbourEdge = neighbour.GetEdge(UnitRoom.RoomDirection.West);
                 }
-                else if (direction == 1) // South
+                else if (direction == UnitRoom.RoomDirection.North)
                 {
-                    room.South.SetMode(RoomEdge.EdgeMode.None);
-                    neighbour.North.SetMode(RoomEdge.EdgeMode.None);
+                    roomEdge = room.GetEdge(UnitRoom.RoomDirection.North);
+                    neighbourEdge = neighbour.GetEdge(UnitRoom.RoomDirection.South);
                 }
-                else if (direction == 2) // East
+                else if (direction == UnitRoom.RoomDirection.South)
                 {
-                    room.East.SetMode(RoomEdge.EdgeMode.None);
-                    neighbour.West.SetMode(RoomEdge.EdgeMode.None);
+                    roomEdge = room.GetEdge(UnitRoom.RoomDirection.South);
+                    neighbourEdge = neighbour.GetEdge(UnitRoom.RoomDirection.North);
                 }
-                else if (direction == 3) // West
+                else
                 {
-                    room.West.SetMode(RoomEdge.EdgeMode.None);
-                    neighbour.East.SetMode(RoomEdge.EdgeMode.None);
+                    roomEdge = room.GetEdge(UnitRoom.RoomDirection.West);
+                    neighbourEdge = neighbour.GetEdge(UnitRoom.RoomDirection.East);
                 }
+
+                roomEdge.SetMode(RoomEdge.EdgeMode.None);
+                neighbourEdge.SetMode(RoomEdge.EdgeMode.None);
             }
         }
     }
 
     protected void GenerateDoors()
     {
+        for (int index = 0; index < DoorCount; index++)
+        {
+            int xRand = Random.Range(0, rooms.Length);
+            int zRand = Random.Range(0, rooms[xRand].Length);
+            UnitRoom.RoomDirection direction = (UnitRoom.RoomDirection)Random.Range(0, (int)UnitRoom.RoomDirection.Directions);
+            int nXRand = xRand;
+            int nZRand = zRand;
+
+            UnitRoom room = rooms[xRand][zRand];
+            UnitRoom neighbour = null;
+
+            if (direction == UnitRoom.RoomDirection.East)
+                nXRand++;
+            else if (direction == UnitRoom.RoomDirection.North)
+                nZRand++;
+            else if (direction == UnitRoom.RoomDirection.South)
+                nZRand--;
+            else 
+                nXRand--;
+
+            if (nXRand >= 0 && nXRand < rooms.Length && nZRand >= 0 && nZRand < rooms[nXRand].Length)
+                neighbour = rooms[nXRand][nZRand];
+
+            if (room == null || neighbour == null)
+            {
+                index--;
+            }
+            else
+            {
+                Debug.Log($"Direction {direction}: Removing Walls from {{{xRand}}},{{{zRand}}} and {{{nXRand}}},{{{nZRand}}}");
+                RoomEdge roomEdge;
+                RoomEdge neighbourEdge;
+                if (direction == UnitRoom.RoomDirection.East)
+                {
+                    roomEdge = room.GetEdge(UnitRoom.RoomDirection.East);
+                    neighbourEdge = neighbour.GetEdge(UnitRoom.RoomDirection.West);
+                }
+                else if (direction == UnitRoom.RoomDirection.North)
+                {
+                    roomEdge = room.GetEdge(UnitRoom.RoomDirection.North);
+                    neighbourEdge = neighbour.GetEdge(UnitRoom.RoomDirection.South);
+                }
+                else if (direction == UnitRoom.RoomDirection.South)
+                {
+                    roomEdge = room.GetEdge(UnitRoom.RoomDirection.South);
+                    neighbourEdge = neighbour.GetEdge(UnitRoom.RoomDirection.North);
+                }
+                else
+                {
+                    roomEdge = room.GetEdge(UnitRoom.RoomDirection.West);
+                    neighbourEdge = neighbour.GetEdge(UnitRoom.RoomDirection.East);
+                }
+
+                if (roomEdge.CurrentMode == RoomEdge.EdgeMode.None)
+                {
+                    index--;
+                }
+                else
+                {
+                    roomEdge.SetMode(RoomEdge.EdgeMode.Door);
+                    neighbourEdge.SetMode(RoomEdge.EdgeMode.Door);
+                }
+            }
+        }
     }
 
     #region Utility

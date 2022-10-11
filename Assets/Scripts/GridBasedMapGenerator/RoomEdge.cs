@@ -9,10 +9,18 @@ public class RoomEdge : MonoBehaviour
 
     public enum EdgeMode { None, Door, Wall }
 
+    public EdgeMode CurrentMode { get; protected set; }
+
+    protected RoomEdge()
+    {
+        CurrentMode = EdgeMode.Wall;
+    }
+
     public void SetMode(EdgeMode mode)
     {
-        Door.SetActive(mode == EdgeMode.Door);
-        Wall.SetActive(mode == EdgeMode.Wall);
+        CurrentMode = mode;
+        Door.SetActive(CurrentMode == EdgeMode.Door);
+        Wall.SetActive(CurrentMode == EdgeMode.Wall);
     }
 
 
