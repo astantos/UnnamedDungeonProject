@@ -10,21 +10,38 @@ public class GridBasedMapGenerator : MonoBehaviour
     public int Width;
     public int Height;
     public int HoleCount;
-    public int MinCoverage;
+    [Range(0,1)]
+    public float MinCoverage;
     public int WallRemovalCount;
     public int DoorCount;
 
+    [Header("Exit Failsafes")]
+    public int GenerationAttempts;
+    public int CoverageAttempts;
+
     protected UnitRoom[][] rooms;
 
-    public void Generate()
+    protected int generationAttempts;
+
+    public void Generate(int attemptCount = 0)
     {
+
+        if (generationAttempts > GenerationAttempts)
+        {
+            Debug.LogError($"[ ERROR ] Generation Exceeded {GenerationAttempts}. Consider changing some parameters.");
+            return;
+        }
+
+        generationAttempts = attemptCount;
+
+        Debug.Log($"[ GENERATION ] Attempt {generationAttempts}");
+
         Reset();
         GenerateRooms();
         GenerateHoles();
-        GenerateRandomSpawnPoint();
-        CleanIslands();
         RemoveWalls();
         GenerateDoors();
+        CheckCoverage();
     }
 
     protected void Reset()
@@ -87,24 +104,41 @@ public class GridBasedMapGenerator : MonoBehaviour
         }
     }
 
-    protected void GenerateRandomSpawnPoint()
+    protected void CheckCoverage(int attemptCount = 0)
     {
+        Debug.Log($"\tCoverage Check Attempt: {attemptCount}");
         int xRand = Random.Range(0, rooms.Length);
         int zRand = Random.Range(0, rooms[xRand].Length);
     
         if (rooms[xRand][zRand] == null)
         {
-            GenerateRandomSpawnPoint();
+            CheckCoverage();
         }
         else
         {
             ResetMarkedRooms();
+
+            int cellsNeeded = (int)(MinCoverage * Width * Height);
             int coverage = MarkCellAndContinue(xRand, zRand, 0); 
-            if (coverage < MinCoverage)
+
+            Debug.Log($"\tCells Covered: {coverage} of {cellsNeeded}");
+            if (coverage < cellsNeeded)
             {
-                Debug.LogError("[ ERROR ] INSUFFICIENT COVERAGE");
+                attemptCount++;
+                if (attemptCount >= CoverageAttempts)
+                {
+                    Debug.LogWarning("[ ERROR ] Unable to find sufficient coverage. Regenerating . . . ");
+                    Generate(generationAttempts + 1);
+                }
+                else
+                {
+                    CheckCoverage(attemptCount);
+                }
             }
-            Debug.Log($"Coverage Amount: {coverage}");
+            else
+            {
+                CleanIslands();
+            }
         }
     }
 
@@ -154,7 +188,6 @@ public class GridBasedMapGenerator : MonoBehaviour
             }
             else
             {
-                Debug.Log($"Direction {direction}: Removing Walls from {{{xRand}}},{{{zRand}}} and {{{nXRand}}},{{{nZRand}}}");
                 RoomEdge roomEdge;
                 RoomEdge neighbourEdge;
                 if (direction == UnitRoom.RoomDirection.East)
@@ -215,7 +248,6 @@ public class GridBasedMapGenerator : MonoBehaviour
             }
             else
             {
-                Debug.Log($"Direction {direction}: Removing Walls from {{{xRand}}},{{{zRand}}} and {{{nXRand}}},{{{nZRand}}}");
                 RoomEdge roomEdge;
                 RoomEdge neighbourEdge;
                 if (direction == UnitRoom.RoomDirection.East)
@@ -275,10 +307,19 @@ public class GridBasedMapGenerator : MonoBehaviour
 
         int result = currentCount;
         result++;
-        result = MarkCellAndContinue(x, z + 1, result);
-        result = MarkCellAndContinue(x + 1, z, result);
-        result = MarkCellAndContinue(x, z - 1, result);
-        result = MarkCellAndContinue(x - 1, z, result);
+
+        if (room.East.CurrentMode == RoomEdge.EdgeMode.Door || room.East.CurrentMode == RoomEdge.EdgeMode.None)
+            result = MarkCellAndContinue(x + 1, z, result);
+
+        if (room.North.CurrentMode == RoomEdge.EdgeMode.Door || room.North.CurrentMode == RoomEdge.EdgeMode.None)
+            result = MarkCellAndContinue(x, z + 1, result);
+
+        if (room.South.CurrentMode == RoomEdge.EdgeMode.Door || room.South.CurrentMode == RoomEdge.EdgeMode.None)
+            result = MarkCellAndContinue(x, z - 1, result);
+
+        if (room.West.CurrentMode == RoomEdge.EdgeMode.Door || room.West.CurrentMode == RoomEdge.EdgeMode.None)
+            result = MarkCellAndContinue(x - 1, z, result);
+
         return result;
     }
     #endregion
