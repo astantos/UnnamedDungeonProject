@@ -347,10 +347,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkManager
       objectReference: {fileID: 0}
-    - target: {fileID: 9047279985416230307, guid: a36f22bba8da62e47b4fbd45fe3c4ee1, type: 3}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 9047279985416230316, guid: a36f22bba8da62e47b4fbd45fe3c4ee1, type: 3}
       propertyPath: m_RootOrder
       value: 1
