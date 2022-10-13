@@ -9,6 +9,7 @@ public class PlayerController : NetworkBehaviour
     public BasicMovement Movement;
 
     protected Coroutine movementRoutine;
+    protected Coroutine lookRoutine;
 
     public override void OnStartClient()
     {
@@ -21,8 +22,8 @@ public class PlayerController : NetworkBehaviour
     {
         Debug.Log("[ CLIENT ] Local Player started");
         base.OnStartLocalPlayer();
-        if (movementRoutine == null)
-            movementRoutine = StartCoroutine(MovementInputRoutine());
+        if (movementRoutine == null) movementRoutine = StartCoroutine(MovementInputRoutine());
+        if (lookRoutine == null) lookRoutine = StartCoroutine(LookInputRoutine());
     }
 
     protected IEnumerator MovementInputRoutine()
@@ -37,5 +38,34 @@ public class PlayerController : NetworkBehaviour
             Movement.SetSpeed(direction);
             yield return null;
         }
+    }
+
+    protected IEnumerator LookInputRoutine()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        while (true)
+        {
+            Vector2 mouseAxis = new Vector2
+            (
+                Input.GetAxis("Mouse X"),
+                -Input.GetAxis("Mouse Y")
+            );
+
+            MainCamera.transform.localRotation = Quaternion.Euler
+            (
+                MainCamera.transform.localRotation.eulerAngles.x + mouseAxis.y,
+                MainCamera.transform.localRotation.eulerAngles.y,
+                MainCamera.transform.localRotation.eulerAngles.z
+            );
+
+            transform.localRotation = Quaternion.Euler
+            (
+                transform.localRotation.eulerAngles.x,
+                transform.localRotation.eulerAngles.y + mouseAxis.x,
+                transform.localRotation.eulerAngles.z
+            );
+
+            yield return null;
+        }    
     }
 }
