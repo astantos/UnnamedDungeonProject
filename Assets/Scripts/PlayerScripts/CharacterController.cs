@@ -5,16 +5,25 @@ using Mirror;
 
 public class CharacterController : NetworkBehaviour
 {
+    public Camera MainCamera;
     public BasicMovement Movement;
 
     protected Coroutine movementRoutine;
 
-    public void Update()
+
+    public override void OnStartClient()
     {
-        if(isLocalPlayer && movementRoutine == null)
-        {
+        Debug.Log("[ CLIENT ] On Start Client");
+        base.OnStartClient();
+        if (!isLocalPlayer) GameObject.Destroy(MainCamera.gameObject);
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        Debug.Log("[ CLIENT ] Local Player started");
+        base.OnStartLocalPlayer();
+        if (movementRoutine == null)
             movementRoutine = StartCoroutine(MovementInputRoutine());
-        }
     }
 
     protected IEnumerator MovementInputRoutine()
@@ -27,7 +36,6 @@ public class CharacterController : NetworkBehaviour
             if (Input.GetKey(KeyCode.A)) direction.x -= 1;
             if (Input.GetKey(KeyCode.D)) direction.x += 1;
             Movement.SetSpeed(direction);
-            Debug.Log(direction);
             yield return null;
         }
     }
