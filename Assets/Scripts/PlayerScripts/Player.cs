@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class PlayerController : NetworkBehaviour
+public class Player : NetworkBehaviour
 {
     public Camera MainCamera;
     public BasicMovement Movement;
