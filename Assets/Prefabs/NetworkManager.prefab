@@ -59,7 +59,11 @@ MonoBehaviour:
   playerPrefab: {fileID: 3060113158388902091, guid: 87582055c28a6224dbbeea99e794b550, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 2024885169095511522, guid: 77fa560280c6b3b44be8b97d20b5cd95, type: 3}
+  - {fileID: 7235690010997006627, guid: ac2748d23e3dfc54da8bf739f3b754dc, type: 3}
+  - {fileID: 6920841873130099652, guid: 8a73a1779be1512478667a10d811fd5b, type: 3}
+  GameManagerPrefab: {fileID: 2156485836099677874, guid: 77fa560280c6b3b44be8b97d20b5cd95, type: 3}
 --- !u!114 &4525797139423455582
 MonoBehaviour:
   m_ObjectHideFlags: 0

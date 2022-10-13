@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class CharacterController : NetworkBehaviour
+public class PlayerController : NetworkBehaviour
 {
     public Camera MainCamera;
     public BasicMovement Movement;
 
     protected Coroutine movementRoutine;
-
 
     public override void OnStartClient()
     {

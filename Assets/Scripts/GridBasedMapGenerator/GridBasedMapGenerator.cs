@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class GridBasedMapGenerator : MonoBehaviour
+public class GridBasedMapGenerator : NetworkBehaviour
 {
     public UnitRoom RoomPrefab;
 
@@ -28,7 +29,6 @@ public class GridBasedMapGenerator : MonoBehaviour
 
     public void Generate(int attemptCount = 0)
     {
-
         if (generationAttempts > GenerationAttempts)
         {
             Debug.LogError($"[ ERROR ] Generation Exceeded {GenerationAttempts}. Consider changing some parameters.");
@@ -63,7 +63,7 @@ public class GridBasedMapGenerator : MonoBehaviour
             {
                 if (rooms[x][z] != null)
                 {
-                    GameObject.Destroy(rooms[x][z].gameObject);
+                    NetworkServer.UnSpawn(rooms[x][z].gameObject);
                     rooms[x][z] = null;
                 }
             }
@@ -75,22 +75,7 @@ public class GridBasedMapGenerator : MonoBehaviour
 
     protected void GenerateRooms()
     {
-        rooms = new UnitRoom[Width][];
-        for (int x = 0; x < rooms.Length; x++)
-        {
-            rooms[x] = new UnitRoom[Height];
-            for (int z = 0; z < rooms[x].Length; z++)
-            {
-                rooms[x][z] = GameObject.Instantiate(RoomPrefab);
-                Vector2 dimensions = rooms[x][z].GetDimensions();
-                rooms[x][z].transform.position = new Vector3
-                (
-                    x * dimensions.x,
-                    0,
-                    z * dimensions.y
-                );
-            }
-        }
+        Initialize2DArray(Width, Height);
     }
 
     protected void GenerateHoles()
@@ -102,7 +87,7 @@ public class GridBasedMapGenerator : MonoBehaviour
 
             if (rooms[xRand][zRand] != null)
             {
-                GameObject.Destroy(rooms[xRand][zRand].gameObject);
+                Unspawn(rooms[xRand][zRand]);
                 rooms[xRand][zRand] = null;
             }
             else
@@ -158,7 +143,7 @@ public class GridBasedMapGenerator : MonoBehaviour
             {
                 if (MarkedRooms[x][z] == false && rooms[x][z] != null)
                 {
-                    GameObject.Destroy(rooms[x][z].gameObject);
+                    Unspawn(rooms[x][z]);
                     rooms[x][z] = null;
                 }
             }
@@ -320,6 +305,26 @@ public class GridBasedMapGenerator : MonoBehaviour
     }
 
     #region Utility
+    public void Initialize2DArray(int width, int height)
+    {
+        rooms = new UnitRoom[width][];
+        for (int x = 0; x < rooms.Length; x++)
+        {
+            rooms[x] = new UnitRoom[height];
+            for (int z = 0; z < rooms[x].Length; z++)
+            {
+                rooms[x][z] = Spawn(RoomPrefab);
+                Vector2 dimensions = rooms[x][z].GetDimensions();
+                rooms[x][z].transform.position = new Vector3
+                (
+                    x * dimensions.x,
+                    0,
+                    z * dimensions.y
+                );
+                rooms[x][z].transform.parent = transform;
+            }
+        }
+    }
     protected int CountWalls()
     {
         int count = 0;
@@ -372,6 +377,49 @@ public class GridBasedMapGenerator : MonoBehaviour
 
         return result;
     }
+    #endregion
 
+    #region Networking
+    public UnitRoom Spawn(UnitRoom prefab)
+    {
+        UnitRoom room = GameObject.Instantiate(RoomPrefab);
+        NetworkServer.Spawn(room.gameObject);
+        return room;
+    }
+
+    public void Unspawn(UnitRoom room)
+    {
+        NetworkServer.UnSpawn(room.gameObject);
+        GameObject.Destroy(room.gameObject);
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (!isServer)
+            RequestRooms();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void RequestRooms()
+    {
+        Debug.Log("[ SERVER ] Client is requesting rooms");
+        for (int x = 0; x < rooms.Length; x++)
+        {
+            for (int z = 0; z < rooms[x].Length; z++)
+            {
+                if (rooms[x][z] == null)
+                    continue;
+
+                UnitRoom room = rooms[x][z];
+                room.SetEdgeMode((int)UnitRoom.RoomDirection.East, (int)room.GetEdge(UnitRoom.RoomDirection.East).CurrentMode);
+                room.SetEdgeMode((int)UnitRoom.RoomDirection.North, (int)room.GetEdge(UnitRoom.RoomDirection.North).CurrentMode);
+                room.SetEdgeMode((int)UnitRoom.RoomDirection.South, (int)room.GetEdge(UnitRoom.RoomDirection.South).CurrentMode);
+                room.SetEdgeMode((int)UnitRoom.RoomDirection.West, (int)room.GetEdge(UnitRoom.RoomDirection.West).CurrentMode);
+            }
+
+        }
+
+    }
     #endregion
 }

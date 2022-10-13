@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomEdge : MonoBehaviour
+public class RoomEdge : MonoBehaviour 
 {
     public GameObject Door;
     public GameObject Wall;

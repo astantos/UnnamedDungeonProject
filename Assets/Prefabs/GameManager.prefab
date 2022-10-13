@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7235690010997006627
+--- !u!1 &2024885169095511522
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7235690010997006625}
-  - component: {fileID: 7235690010997006624}
-  - component: {fileID: 6558454670118978473}
+  - component: {fileID: 4195394829755305242}
+  - component: {fileID: 5362251359057220993}
+  - component: {fileID: 2156485836099677874}
   m_Layer: 0
-  m_Name: GridBasedMapGenerator
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7235690010997006625
+--- !u!4 &4195394829755305242
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7235690010997006627}
+  m_GameObject: {fileID: 2024885169095511522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,35 +33,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7235690010997006624
+--- !u!114 &5362251359057220993
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7235690010997006627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d30f0c6558bb814449c0c6929f11bb56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RoomPrefab: {fileID: 8033445888809082406, guid: 8a73a1779be1512478667a10d811fd5b, type: 3}
-  Width: 10
-  Height: 10
-  HoleCount: 5
-  MinCoverage: 0.5
-  WallRemovalCount: 20
-  DoorCount: 100
-  GenerationAttempts: 5
-  CoverageAttempts: 5
-  BreakoutAttempts: 5
---- !u!114 &6558454670118978473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7235690010997006627}
+  m_GameObject: {fileID: 2024885169095511522}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
@@ -70,5 +48,20 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: ac2748d23e3dfc54da8bf739f3b754dc
+  m_AssetId: 77fa560280c6b3b44be8b97d20b5cd95
   hasSpawned: 0
+--- !u!114 &2156485836099677874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024885169095511522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3575665a413da144ab737f1b04aa6e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  MapGeneratorPrefab: {fileID: 7235690010997006624, guid: ac2748d23e3dfc54da8bf739f3b754dc, type: 3}

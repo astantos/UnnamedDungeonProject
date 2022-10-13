@@ -5,9 +5,17 @@ using Mirror;
 
 public class CustomNetworkManager : NetworkManager
 {
+    public GameManager GameManagerPrefab;
+
+    protected GameManager gameManager;
+
+    #region Server Callbacks
     public override void OnStartServer()
     {
         Debug.Log("[ SERVER ] Server has been started");
+        gameManager = GameObject.Instantiate(GameManagerPrefab);
+        NetworkServer.Spawn(gameManager.gameObject);
+        gameManager.StartGame();
     }
     
     public override void OnStopServer()
@@ -26,4 +34,5 @@ public class CustomNetworkManager : NetworkManager
         base.OnServerDisconnect(conn);
         Debug.Log($"[ SERVER ] Client {conn.connectionId} has disconnected!");
     }
+    #endregion
 }

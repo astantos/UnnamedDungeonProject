@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class UnitRoom : MonoBehaviour
+public class UnitRoom : NetworkBehaviour
 {
     public enum RoomDirection {East, North, South, West, Directions }
 
@@ -36,4 +37,13 @@ public class UnitRoom : MonoBehaviour
         if (West.CurrentMode == mode) count++;
         return count;
     }
+
+    #region Server
+    [ClientRpc]
+    public void SetEdgeMode(int edge, int mode)
+    {
+        RoomDirection direction = (RoomDirection)edge;
+        GetEdge(direction).SetMode((RoomEdge.EdgeMode)mode);
+    }
+    #endregion
 }
