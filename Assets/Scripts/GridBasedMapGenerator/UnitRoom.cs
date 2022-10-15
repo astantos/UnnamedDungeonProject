@@ -7,12 +7,27 @@ public class UnitRoom : NetworkBehaviour
 {
     public enum RoomDirection {East, North, South, West, Directions }
 
+    [SyncVar] public int X;
+    [SyncVar] public int Z;
+
+
     public RoomEdge North;
     public RoomEdge South;
     public RoomEdge East;
     public RoomEdge West;
 
     public GameObject Floor;
+
+    public void Initialize(int x, int z)
+    {
+        X = x;
+        Z = z;
+        gameObject.name = $"Room [{x}, {z}]";
+        East.SetMode(RoomEdge.EdgeMode.Wall);
+        North.SetMode(RoomEdge.EdgeMode.Wall);
+        South.SetMode(RoomEdge.EdgeMode.Wall);
+        West.SetMode(RoomEdge.EdgeMode.Wall);
+    }
 
     public Vector2 GetDimensions()
     {

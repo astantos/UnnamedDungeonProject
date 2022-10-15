@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1506546261892120773
 Transform:
   m_ObjectHideFlags: 0
@@ -41,6 +41,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1506546261892120773}
     m_Modifications:
+    - target: {fileID: 116686832034779381, guid: c83aa99ebc5901d4c80552574c94688a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1c9e81fa54e95914892d0b07f6c50df3, type: 2}
     - target: {fileID: 3209921265965790885, guid: c83aa99ebc5901d4c80552574c94688a, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -103,7 +107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8117734053053345774, guid: c83aa99ebc5901d4c80552574c94688a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1380
+      value: 1383
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c83aa99ebc5901d4c80552574c94688a, type: 3}
@@ -119,6 +123,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1506546261892120773}
     m_Modifications:
+    - target: {fileID: 116686832034779381, guid: c83aa99ebc5901d4c80552574c94688a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1c9e81fa54e95914892d0b07f6c50df3, type: 2}
     - target: {fileID: 3209921265965790885, guid: c83aa99ebc5901d4c80552574c94688a, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -181,7 +189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8117734053053345774, guid: c83aa99ebc5901d4c80552574c94688a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1377
+      value: 1380
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c83aa99ebc5901d4c80552574c94688a, type: 3}
@@ -203,7 +211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1641263186066496963, guid: 5498f660b8054ba4d96fd0f2ac679afa, type: 3}
       propertyPath: m_VersionIndex
-      value: 5210
+      value: 5213
       objectReference: {fileID: 0}
     - target: {fileID: 1641263186066496963, guid: 5498f660b8054ba4d96fd0f2ac679afa, type: 3}
       propertyPath: m_SelectedEdges.Array.size
@@ -273,6 +281,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Doorway
       objectReference: {fileID: 0}
+    - target: {fileID: 7493851510524830424, guid: 5498f660b8054ba4d96fd0f2ac679afa, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1c9e81fa54e95914892d0b07f6c50df3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5498f660b8054ba4d96fd0f2ac679afa, type: 3}
 --- !u!4 &4675952490202499450 stripped

@@ -63,8 +63,7 @@ public class GridBasedMapGenerator : NetworkBehaviour
             {
                 if (rooms[x][z] != null)
                 {
-                    NetworkServer.UnSpawn(rooms[x][z].gameObject);
-                    rooms[x][z] = null;
+                    Unspawn(rooms[x][z]);
                 }
             }
         }
@@ -88,7 +87,6 @@ public class GridBasedMapGenerator : NetworkBehaviour
             if (rooms[xRand][zRand] != null)
             {
                 Unspawn(rooms[xRand][zRand]);
-                rooms[xRand][zRand] = null;
             }
             else
             {
@@ -144,7 +142,6 @@ public class GridBasedMapGenerator : NetworkBehaviour
                 if (MarkedRooms[x][z] == false && rooms[x][z] != null)
                 {
                     Unspawn(rooms[x][z]);
-                    rooms[x][z] = null;
                 }
             }
         }
@@ -313,7 +310,7 @@ public class GridBasedMapGenerator : NetworkBehaviour
             rooms[x] = new UnitRoom[height];
             for (int z = 0; z < rooms[x].Length; z++)
             {
-                rooms[x][z] = Spawn(RoomPrefab);
+                rooms[x][z] = Spawn(RoomPrefab, x, z);
                 Vector2 dimensions = rooms[x][z].GetDimensions();
                 rooms[x][z].transform.position = new Vector3
                 (
@@ -380,17 +377,25 @@ public class GridBasedMapGenerator : NetworkBehaviour
     #endregion
 
     #region Networking
-    public UnitRoom Spawn(UnitRoom prefab)
+    public UnitRoom Spawn(UnitRoom prefab, int x, int z)
     {
         UnitRoom room = GameObject.Instantiate(RoomPrefab);
+        room.Initialize(x, z);
         NetworkServer.Spawn(room.gameObject);
         return room;
     }
 
     public void Unspawn(UnitRoom room)
     {
+        Debug.Log($"[ SERVER ] Calling for Room [{room.X}, {room.Z}] to Unspawn");
+
+        int x = room.X;
+        int z = room.Z;
         NetworkServer.UnSpawn(room.gameObject);
         GameObject.Destroy(room.gameObject);
+
+        if (x < rooms.Length && z < rooms[x].Length && rooms[x][z] != null)
+            rooms[x][z] = null;
     }
 
     public override void OnStartClient()
