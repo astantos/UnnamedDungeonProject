@@ -23,7 +23,7 @@ public class GridBasedMapGenerator : NetworkBehaviour
     [Tooltip("Total multiplier number of attempts to find targets, per function (e.g. GenerateDoors(100) => 100 x BreakoutAttepts)")]
     public int BreakoutAttempts;
 
-    protected UnitRoom[][] rooms;
+    public UnitRoom[][] Rooms { get; protected set; }
 
     protected int generationAttempts;
 
@@ -54,21 +54,21 @@ public class GridBasedMapGenerator : NetworkBehaviour
 
     protected void Reset()
     {
-        if (rooms == null)
+        if (Rooms == null)
             return;
 
-        for (int x = 0; x < rooms.Length; x++)
+        for (int x = 0; x < Rooms.Length; x++)
         {
-            for (int z = 0; z < rooms[x].Length; z++)
+            for (int z = 0; z < Rooms[x].Length; z++)
             {
-                if (rooms[x][z] != null)
+                if (Rooms[x][z] != null)
                 {
-                    Unspawn(rooms[x][z]);
+                    Unspawn(Rooms[x][z]);
                 }
             }
         }
 
-        rooms = null;
+        Rooms = null;
         MarkedRooms = null;
     }
 
@@ -81,12 +81,12 @@ public class GridBasedMapGenerator : NetworkBehaviour
     {
         for (int index = 0; index < HoleCount; index++)
         {
-            int xRand = Random.Range(0, rooms.Length);
-            int zRand = Random.Range(0, rooms[xRand].Length);
+            int xRand = Random.Range(0, Rooms.Length);
+            int zRand = Random.Range(0, Rooms[xRand].Length);
 
-            if (rooms[xRand][zRand] != null)
+            if (Rooms[xRand][zRand] != null)
             {
-                Unspawn(rooms[xRand][zRand]);
+                Unspawn(Rooms[xRand][zRand]);
             }
             else
             {
@@ -98,10 +98,10 @@ public class GridBasedMapGenerator : NetworkBehaviour
     protected void CheckCoverage(int attemptCount = 0)
     {
         Debug.Log($"\tCoverage Check Attempt: {attemptCount}");
-        int xRand = Random.Range(0, rooms.Length);
-        int zRand = Random.Range(0, rooms[xRand].Length);
+        int xRand = Random.Range(0, Rooms.Length);
+        int zRand = Random.Range(0, Rooms[xRand].Length);
 
-        if (rooms[xRand][zRand] == null)
+        if (Rooms[xRand][zRand] == null)
         {
             CheckCoverage();
         }
@@ -135,13 +135,13 @@ public class GridBasedMapGenerator : NetworkBehaviour
 
     protected void CleanIslands()
     {
-        for (int x = 0; x < rooms.Length; x++)
+        for (int x = 0; x < Rooms.Length; x++)
         {
-            for (int z = 0; z < rooms[x].Length; z++)
+            for (int z = 0; z < Rooms[x].Length; z++)
             {
-                if (MarkedRooms[x][z] == false && rooms[x][z] != null)
+                if (MarkedRooms[x][z] == false && Rooms[x][z] != null)
                 {
-                    Unspawn(rooms[x][z]);
+                    Unspawn(Rooms[x][z]);
                 }
             }
         }
@@ -157,13 +157,13 @@ public class GridBasedMapGenerator : NetworkBehaviour
         int currentBreakout = 0;
         for (int index = 0; index < WallRemovalCount; index++)
         {
-            int xRand = Random.Range(0, rooms.Length);
-            int zRand = Random.Range(0, rooms[xRand].Length);
+            int xRand = Random.Range(0, Rooms.Length);
+            int zRand = Random.Range(0, Rooms[xRand].Length);
             UnitRoom.RoomDirection direction = (UnitRoom.RoomDirection)Random.Range(0, (int)UnitRoom.RoomDirection.Directions);
             int nXRand = xRand;
             int nZRand = zRand;
 
-            UnitRoom room = rooms[xRand][zRand];
+            UnitRoom room = Rooms[xRand][zRand];
             UnitRoom neighbour = null;
 
             if (direction == UnitRoom.RoomDirection.East)
@@ -175,8 +175,8 @@ public class GridBasedMapGenerator : NetworkBehaviour
             else
                 nXRand--;
 
-            if (nXRand >= 0 && nXRand < rooms.Length && nZRand >= 0 && nZRand < rooms[nXRand].Length)
-                neighbour = rooms[nXRand][nZRand];
+            if (nXRand >= 0 && nXRand < Rooms.Length && nZRand >= 0 && nZRand < Rooms[nXRand].Length)
+                neighbour = Rooms[nXRand][nZRand];
 
             if (room == null || neighbour == null)
             {
@@ -231,13 +231,13 @@ public class GridBasedMapGenerator : NetworkBehaviour
         int currentBreakout = 0;
         for (int index = 0; index < DoorCount; index++)
         {
-            int xRand = Random.Range(0, rooms.Length);
-            int zRand = Random.Range(0, rooms[xRand].Length);
+            int xRand = Random.Range(0, Rooms.Length);
+            int zRand = Random.Range(0, Rooms[xRand].Length);
             UnitRoom.RoomDirection direction = (UnitRoom.RoomDirection)Random.Range(0, (int)UnitRoom.RoomDirection.Directions);
             int nXRand = xRand;
             int nZRand = zRand;
 
-            UnitRoom room = rooms[xRand][zRand];
+            UnitRoom room = Rooms[xRand][zRand];
             UnitRoom neighbour = null;
 
             if (direction == UnitRoom.RoomDirection.East)
@@ -249,8 +249,8 @@ public class GridBasedMapGenerator : NetworkBehaviour
             else
                 nXRand--;
 
-            if (nXRand >= 0 && nXRand < rooms.Length && nZRand >= 0 && nZRand < rooms[nXRand].Length)
-                neighbour = rooms[nXRand][nZRand];
+            if (nXRand >= 0 && nXRand < Rooms.Length && nZRand >= 0 && nZRand < Rooms[nXRand].Length)
+                neighbour = Rooms[nXRand][nZRand];
 
             if (room == null || neighbour == null)
             {
@@ -304,34 +304,34 @@ public class GridBasedMapGenerator : NetworkBehaviour
     #region Utility
     public void Initialize2DArray(int width, int height)
     {
-        rooms = new UnitRoom[width][];
-        for (int x = 0; x < rooms.Length; x++)
+        Rooms = new UnitRoom[width][];
+        for (int x = 0; x < Rooms.Length; x++)
         {
-            rooms[x] = new UnitRoom[height];
-            for (int z = 0; z < rooms[x].Length; z++)
+            Rooms[x] = new UnitRoom[height];
+            for (int z = 0; z < Rooms[x].Length; z++)
             {
-                rooms[x][z] = Spawn(RoomPrefab, x, z);
-                Vector2 dimensions = rooms[x][z].GetDimensions();
-                rooms[x][z].transform.position = new Vector3
+                Rooms[x][z] = Spawn(RoomPrefab, x, z);
+                Vector2 dimensions = Rooms[x][z].GetDimensions();
+                Rooms[x][z].transform.position = new Vector3
                 (
                     x * dimensions.x,
                     0,
                     z * dimensions.y
                 );
-                rooms[x][z].transform.parent = transform;
+                Rooms[x][z].transform.parent = transform;
             }
         }
     }
     protected int CountWalls()
     {
         int count = 0;
-        for (int x = 0; x < rooms.Length; x++)
+        for (int x = 0; x < Rooms.Length; x++)
         {
-            for (int z = 0; z < rooms[x].Length; z++)
+            for (int z = 0; z < Rooms[x].Length; z++)
             {
-                if (rooms[x][z] == null)
+                if (Rooms[x][z] == null)
                     continue;
-                count += rooms[x][z].GetEdgeCount(RoomEdge.EdgeMode.Wall);
+                count += Rooms[x][z].GetEdgeCount(RoomEdge.EdgeMode.Wall);
             }
         }
         return count;
@@ -340,18 +340,18 @@ public class GridBasedMapGenerator : NetworkBehaviour
     protected bool[][] MarkedRooms;
     protected void ResetMarkedRooms()
     {
-        MarkedRooms = new bool[rooms.Length][];
+        MarkedRooms = new bool[Rooms.Length][];
         for (int x = 0; x < MarkedRooms.Length; x++)
-            MarkedRooms[x] = new bool[rooms[x].Length];
+            MarkedRooms[x] = new bool[Rooms[x].Length];
 
     }
 
     protected int MarkCellAndContinue(int x, int z, int currentCount)
     {
-        if (x < 0 || z < 0 || x > rooms.Length - 1 || z > rooms[x].Length - 1)
+        if (x < 0 || z < 0 || x > Rooms.Length - 1 || z > Rooms[x].Length - 1)
             return currentCount;
 
-        UnitRoom room = rooms[x][z];
+        UnitRoom room = Rooms[x][z];
         if (room == null || MarkedRooms[x][z])
             return currentCount;
 
@@ -394,8 +394,8 @@ public class GridBasedMapGenerator : NetworkBehaviour
         NetworkServer.UnSpawn(room.gameObject);
         GameObject.Destroy(room.gameObject);
 
-        if (x < rooms.Length && z < rooms[x].Length && rooms[x][z] != null)
-            rooms[x][z] = null;
+        if (x < Rooms.Length && z < Rooms[x].Length && Rooms[x][z] != null)
+            Rooms[x][z] = null;
     }
 
     public override void OnStartClient()
@@ -409,14 +409,14 @@ public class GridBasedMapGenerator : NetworkBehaviour
     public void RequestRooms()
     {
         Debug.Log("[ SERVER ] Client is requesting rooms");
-        for (int x = 0; x < rooms.Length; x++)
+        for (int x = 0; x < Rooms.Length; x++)
         {
-            for (int z = 0; z < rooms[x].Length; z++)
+            for (int z = 0; z < Rooms[x].Length; z++)
             {
-                if (rooms[x][z] == null)
+                if (Rooms[x][z] == null)
                     continue;
 
-                UnitRoom room = rooms[x][z];
+                UnitRoom room = Rooms[x][z];
                 room.SetEdgeMode((int)UnitRoom.RoomDirection.East, (int)room.GetEdge(UnitRoom.RoomDirection.East).CurrentMode);
                 room.SetEdgeMode((int)UnitRoom.RoomDirection.North, (int)room.GetEdge(UnitRoom.RoomDirection.North).CurrentMode);
                 room.SetEdgeMode((int)UnitRoom.RoomDirection.South, (int)room.GetEdge(UnitRoom.RoomDirection.South).CurrentMode);
