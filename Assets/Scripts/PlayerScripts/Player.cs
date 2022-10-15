@@ -21,7 +21,10 @@ public class Player : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         Debug.Log("[ CLIENT ] Local Player started");
+
         base.OnStartLocalPlayer();
+        RequestPlayerRegistration();
+
         if (movementRoutine == null) movementRoutine = StartCoroutine(MovementInputRoutine());
         if (lookRoutine == null) lookRoutine = StartCoroutine(LookInputRoutine());
     }
@@ -68,4 +71,19 @@ public class Player : NetworkBehaviour
             yield return null;
         }    
     }
+
+    #region Server
+    [Command]
+    public void RequestPlayerRegistration(NetworkConnectionToClient conn = null)
+    {
+        bool success = GameManager.Inst.RegisterPlayer(gameObject);
+        PlayerRegistrationResponse(conn, success);
+    }
+
+    [TargetRpc]
+    public void PlayerRegistrationResponse(NetworkConnection conn, bool success)
+    {
+        Debug.Log($"[ CLIENT ] Registration Response {(success ? "SUCCESS" : "FAILURE")}");
+    }
+    #endregion
 }
