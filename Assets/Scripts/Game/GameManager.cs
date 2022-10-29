@@ -25,13 +25,19 @@ public class GameManager : NetworkBehaviour
     public static GameManager _inst;
 
     public GridBasedMapGenerator MapGeneratorPrefab;
+    public SpawnPoint SpawnPointPrefab;
 
+
+    [Header("Serialized Variables")]
     // Map \\
     [SerializeField] protected GridBasedMapGenerator mapGenerator;
 
     // Players \\
     [SerializeField] protected Player PlayerOne;
     [SerializeField] protected Player PlayerTwo;
+
+    [SerializeField] protected SpawnPoint GroundSpawnPointOne;
+    [SerializeField] protected SpawnPoint GroundSpawnPointTwo;
 
     public void StartGame()
     {
@@ -40,9 +46,27 @@ public class GameManager : NetworkBehaviour
         NetworkServer.Spawn(mapGenerator.gameObject);
 
         mapGenerator.Generate();
+        SetGroundSpawnPoints();
     }
 
-    #region Server
+    protected void SetGroundSpawnPoints()
+    {
+        GroundSpawnPointOne = GameObject.Instantiate(SpawnPointPrefab);
+        GroundSpawnPointTwo = GameObject.Instantiate(SpawnPointPrefab);
+
+        UnitRoom spawnPointRoomOne = mapGenerator.GetRandomRoom();
+        UnitRoom spawnPointRoomTwo = null;
+        while (spawnPointRoomTwo == null)
+        {
+            spawnPointRoomTwo = mapGenerator.GetRandomRoom();
+            if (spawnPointRoomTwo == spawnPointRoomOne)
+                spawnPointRoomTwo = null;
+        }
+
+        GroundSpawnPointOne.SetPosition(spawnPointRoomOne.transform.position);
+        GroundSpawnPointTwo.SetPosition(spawnPointRoomTwo.transform.position);
+    }
+
     public bool RegisterPlayer(GameObject player)
     {
         Debug.Log($"[ SERVER ] Client Player requesting registration");
@@ -65,5 +89,8 @@ public class GameManager : NetworkBehaviour
 
         return success;
     }
+
+
+    #region Server
     #endregion
 }

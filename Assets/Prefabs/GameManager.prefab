@@ -65,3 +65,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   MapGeneratorPrefab: {fileID: 7235690010997006624, guid: ac2748d23e3dfc54da8bf739f3b754dc, type: 3}
+  SpawnPointPrefab: {fileID: 8596871521607923180, guid: c2575bbcb59623b4fa140f0438302a62, type: 3}
+  mapGenerator: {fileID: 0}
+  PlayerOne: {fileID: 0}
+  PlayerTwo: {fileID: 0}

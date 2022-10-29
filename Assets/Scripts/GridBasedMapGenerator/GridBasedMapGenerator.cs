@@ -302,7 +302,7 @@ public class GridBasedMapGenerator : NetworkBehaviour
     }
 
     #region Utility
-    public void Initialize2DArray(int width, int height)
+    protected void Initialize2DArray(int width, int height)
     {
         Rooms = new UnitRoom[width][];
         for (int x = 0; x < Rooms.Length; x++)
@@ -373,6 +373,21 @@ public class GridBasedMapGenerator : NetworkBehaviour
             result = MarkCellAndContinue(x - 1, z, result);
 
         return result;
+    }
+
+    public UnitRoom GetRandomRoom()
+    {
+        UnitRoom room = null;
+        while (room == null) 
+        {
+            int x = Random.Range(0, Rooms.Length);
+            int z = Random.Range(0, Rooms[x].Length);
+
+            if (Rooms[x][z] != null)
+                room = Rooms[x][z];
+        } 
+
+        return room;
     }
     #endregion
 
