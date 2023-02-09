@@ -24,9 +24,20 @@ public class GameManager : NetworkBehaviour
     }
     public static GameManager _inst;
 
+    [Header("Game Settings")]
+
+    [Header("Prefabs")]
     public GridBasedMapGenerator MapGeneratorPrefab;
     public SpawnPoint SpawnPointPrefab;
 
+
+    public Vector3 PlayerPosition
+    {
+        get
+        {
+
+        }
+    }
 
     [Header("Serialized Variables")]
     // Map \\
